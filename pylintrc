@@ -1,0 +1,8 @@
+[MESSAGES CONTROL]
+disable=C0330
+
+[BASIC]
+good-names=ax,b,bv,ct,i,j,k,m,M,n,N,op,p,P,q,r,s,tx,u,v,vv,w,x,y,z
+
+[TYPECHECK]
+generated-members=matplotlib.cm*
