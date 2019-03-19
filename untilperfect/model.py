@@ -10,9 +10,9 @@ Vessels. It also contains a function for solving the problem.
 import numpy
 import pulp
 
-from untilperfect.pulptools import LpVariableArray
-from untilperfect.plots import single_cycle_plot
-from untilperfect.iotools import column_reader, get_config_section
+from .pulptools import LpVariableArray
+from .plots import single_cycle_plot
+from .iotools import column_reader, get_config_section
 
 # PROJECT TODOs:
 # TODO: Incorporate type hinting to improve documentation

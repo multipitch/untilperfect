@@ -17,6 +17,7 @@ import sys
 
 sys.path.insert(0, os.path.abspath(".."))
 
+# pylint: skip-file
 
 # -- Project information -----------------------------------------------------
 
@@ -48,9 +49,9 @@ extensions = [
     "sphinx.ext.imgmath",
     "sphinx.ext.ifconfig",
     "sphinx.ext.viewcode",
-    #'sphinx.ext.napoleon',
-    "numpydoc",
+    "sphinx.ext.napoleon",
     "sphinx.ext.imgconverter",
+    "sphinxcontrib.rsvgconverter",
 ]
 
 # Add any paths that contain templates here, relative to this directory.

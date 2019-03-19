@@ -21,7 +21,7 @@ setuptools.setup(
     long_description=LONG_DESCRIPTION,
     long_description_content_type="text/x-rst",
     url="https://github.com/multipitch/untilperfect",
-    packages=setuptools.find_packages(exclude=["untilperfect.stale"]),
+    packages=setuptools.find_packages(),
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Environment :: Console",
@@ -38,5 +38,7 @@ setuptools.setup(
         "PuLP>=1.6.9",
         "pylatexenc>=1.3",
     ],
-    extras_require={"dev": ["black", "pylint", "sphinx", "numpydoc"]},
+    extras_require={
+        "dev": ["black", "pylint", "sphinx", "sphinxcontrib-svg2pdfconverter"]
+    },
 )
