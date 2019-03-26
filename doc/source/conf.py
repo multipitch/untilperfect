@@ -72,7 +72,8 @@ extensions = [
     "sphinx.ext.ifconfig",
     "sphinx.ext.viewcode",
     "sphinx.ext.napoleon",
-    "sphinx.ext.imgconverter",
+    # "sphinx.ext.imgconverter",
+    "sphinxcontrib.rsvgconverter",
     "sphinx.ext.mathjax",
 ]
 

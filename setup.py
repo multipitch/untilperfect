@@ -61,5 +61,7 @@ setuptools.setup(
         "PuLP>=1.6.9",
         "pylatexenc>=1.3",
     ],
-    extras_require={"dev": ["black", "pylint", "sphinx"]},
+    extras_require={
+        "dev": ["black", "pylint", "sphinx", "sphinxcontrib-svg2pdfconverter"]
+    },
 )

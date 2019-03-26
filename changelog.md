@@ -21,7 +21,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Removed
 - Use of numpydoc in documentation - reverted to sphinx.ext.napoleon.
-- Dependency on sphinxcontrib-svg2pdfconverter for decvelopment install.
 - Excluded doc/conf.py from linting with pylint.
 - Removed disabling of TODO warnings in pylintrc
 
