@@ -1,8 +1,23 @@
 [MESSAGES CONTROL]
+# Disabled indentation check as this is incorrectly flagging
+# indentation that has been properly formatted with `black`.
 disable=C0330
 
 [BASIC]
-good-names=ax,b,bv,ct,i,j,k,m,M,n,N,op,p,P,q,r,s,tx,u,v,vv,w,x,y,z
+# Due to the length of some mathematical formulae, some terse variable
+# names are required. Rather than disabling name checkes, these have 
+# been explicitly whitelisted.
+# TODO: Where the variable name doesn't represent a single-letter
+# mathematical variable name, consider replacing with something more 
+# verbose.
+good-names=ax,b,bv,ct,e,i,j,k,m,M,n,N,op,p,P,q,r,s,tx,u,v,vv,w,x,y,z
 
 [TYPECHECK]
+# Due to the way matplotlib creates colormaps, these fall afoul of 
+# E1101 (no-member).
 generated-members=matplotlib.cm*
+
+[MISCELLANEOUS]
+# Removed `TODO` from notes below to disable todo warnings.
+#notes=FIXME,XXX,TODO
+notes=FIXME,XXX

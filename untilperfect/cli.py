@@ -10,12 +10,15 @@ import shutil
 
 import pulp
 
-from untilperfect.model import BufferPrepProblem, solve
+from .model import BufferPrepProblem, solve
 
 
 # TODO: Interactive mode with problem returned
 # TODO: Improve documentation
 # TODO: Consider using click instead of argparse
+# TODO: Function to list installed solvers
+
+
 def main():
     """Provides command line interface to untilperfect.
 
@@ -115,20 +118,20 @@ def main():
         problem_type = BufferPrepProblem.minimized_hold_time
         if args.solver and args.solver.upper() in ["GLPK", "GLPK_CMD"]:
             print(
-                "Warning: The 'minimized_hold_times' model is not currently "
+                "Warning: The 'minimized_hold_time' model is not currently "
                 "working with GLPK - try another solver.\n"
             )
     elif args.problem_type.lower() == "minimized_used_volume":
         problem_type = BufferPrepProblem.minimized_used_volume
         if args.solver and args.solver.upper() in ["GLPK", "GLPK_CMD"]:
             print(
-                "Warning: The 'minimized_hold_times' model is not currently "
+                "Warning: The 'minimized_hold_time' model is not currently "
                 "working with GLPK - try another solver.\n"
             )
     else:
         raise ValueError(
             "'{}' is an invalid problem type.  Valid types are "
-            "'basic', 'complete', 'minimized_hold_times'."
+            "'basic', 'complete', 'minimized_hold_time'."
         )
 
     plot = not args.no_plot

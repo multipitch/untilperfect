@@ -1,3 +1,10 @@
+"""
+pulptools.py
+
+This module contains a class to handle multidimensional variables
+in pulp.
+"""
+
 import numpy
 import pulp
 
@@ -33,10 +40,11 @@ class LpVariableArray:
 
     def _build_variables_array(self):
         """Builds a multidimensional array of decision variables."""
-        f = numpy.vectorize(self._define_variable)
-        return numpy.fromfunction(f, self.dimensions, dtype="int")
+        vfunc = numpy.vectorize(self._define_variable)
+        return numpy.fromfunction(vfunc, self.dimensions, dtype="int")
 
     def evaluate(self):
         """Evaluates decision variable values."""
-        f = numpy.vectorize(lambda i: pulp.value(i))
-        self.values = f(self.variables)
+        # pylint: disable=W0108
+        vfunc = numpy.vectorize(lambda i: pulp.value(i))
+        self.values = vfunc(self.variables)
