@@ -11,7 +11,7 @@ The source repo is at https://github.com/multipitch/untilperfect.
 
 Builds are hosted at https://pypi.org/project/untilperfect/.
 
-Documentation is hosted at https://readthedocs.org/projects/untilperfect/.
+Documentation is hosted at https://untilperfect.readthedocs.io/.
 
 This project was forked from https://github.com/multipitch/dissertation.
 The dissertation repo was created for my masters dissertation on the
