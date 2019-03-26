@@ -197,6 +197,190 @@ def single_cycle_plot(problem, filename=None):
         matplotlib.pyplot.show()
 
 
+def explanatory_plot(filename="explanatory.svg"):
+    """Plot that explains duration parameters."""
+    matplotlib_init()
+    fig, ax = matplotlib.pyplot.subplots(figsize=(8, 3))
+
+    ax.broken_barh(
+        [(6, 10), (28, 13)],
+        (150, 20),
+        facecolors="white",
+        edgecolors="black",
+        linewidth=0.5,
+        zorder=3,
+    )
+    ax.broken_barh(
+        [(16, 12)],
+        (90, 80),
+        facecolors="white",
+        edgecolors="black",
+        linewidth=0.5,
+        zorder=3,
+        linestyle="dotted",
+    )
+    ax.broken_barh(
+        [(16, 12)],
+        (150, 20),
+        facecolors="white",
+        edgecolors="black",
+        linewidth=0.5,
+        zorder=3,
+        hatch="///",
+    )
+    ax.broken_barh(
+        [(6, 35)],
+        (150, 20),
+        facecolors="none",
+        edgecolors="black",
+        linewidth=1,
+        zorder=4,
+    )
+    ax.broken_barh(
+        [(5, 11), (28, 36), (64, 11)],
+        (90, 20),
+        facecolors="white",
+        edgecolors="black",
+        linewidth=0.5,
+        zorder=3,
+    )
+    ax.broken_barh(
+        [(16, 12)],
+        (90, 20),
+        facecolors="white",
+        edgecolors="black",
+        linewidth=0.5,
+        zorder=3,
+        hatch="///",
+    )
+    ax.broken_barh(
+        [(44, 20)],
+        (30, 80),
+        facecolors="white",
+        edgecolors="black",
+        linewidth=0.5,
+        zorder=3,
+        linestyle="dotted",
+    )
+    ax.broken_barh(
+        [(44, 20)],
+        (90, 20),
+        facecolors="white",
+        edgecolors="black",
+        linewidth=0.5,
+        zorder=3,
+        hatch="\\\\\\",
+    )
+    ax.broken_barh(
+        [(5, 70)],
+        (90, 20),
+        facecolors="none",
+        edgecolors="black",
+        linewidth=1,
+        zorder=4,
+    )
+    ax.broken_barh(
+        [(-10, 120)],
+        (30, 20),
+        facecolors="white",
+        edgecolors="none",
+        linewidth=0.5,
+        zorder=3,
+    )
+    ax.broken_barh(
+        [(44, 3), (49, 2), (53, 5), (60, 4)],
+        (30, 20),
+        facecolors="white",
+        edgecolors="black",
+        linewidth=0.5,
+        zorder=3,
+        hatch="\\\\\\",
+    )
+    ax.broken_barh(
+        [(-10, 120)],
+        (30, 20),
+        facecolors="none",
+        edgecolors="black",
+        linewidth=1,
+        zorder=4,
+        linestyle="dashed",
+    )
+
+    ax.set_ylim(0, 200)
+    ax.set_xlim(0, 80)
+    ax.grid(axis="x", linestyle="solid", linewidth=1, zorder=0)
+    ax.grid(axis="y", linestyle="dashed", linewidth=1, zorder=0)
+    ax.set_xlabel("time (h)")
+    ax.set_ylabel("Process Equipment")
+    ax.set_yticks([40, 100, 160])
+    ax.set_xticks([0, 44, 80])
+    ax.set_xticklabels(["0", "$t_{USE,n}$", "$T$"])
+    ax.set_yticklabels(
+        ["(Process Users)", "Hold Vessel", "Preparation Vessel"]
+    )
+
+    ax.text(
+        11,
+        160,
+        r"$\Delta t_{\mathit{PREP,PRE}}$",
+        fontsize=8,
+        horizontalalignment="center",
+        verticalalignment="center",
+    )
+    ax.text(
+        34.5,
+        160,
+        r"$\Delta t_{\mathit{PREP,POST}}$",
+        fontsize=8,
+        horizontalalignment="center",
+        verticalalignment="center",
+    )
+    ax.text(
+        10.5,
+        100,
+        r"$\Delta t_{\mathit{HOLD,PRE}}$",
+        fontsize=8,
+        horizontalalignment="center",
+        verticalalignment="center",
+    )
+    ax.text(
+        69.5,
+        100,
+        r"$\Delta t_{\mathit{HOLD,POST}}$",
+        fontsize=8,
+        horizontalalignment="center",
+        verticalalignment="center",
+    )
+    ax.text(
+        22,
+        130,
+        r"$\Delta t_{\mathit{TRANSFER}}$",
+        fontsize=8,
+        horizontalalignment="center",
+        verticalalignment="center",
+    )
+    ax.text(
+        54,
+        70,
+        r"$\Delta t_{\mathit{USE},n}$",
+        fontsize=8,
+        horizontalalignment="center",
+        verticalalignment="center",
+    )
+    ax.text(
+        36,
+        100,
+        r"$\textbf{\textit{z}}_{n}$",
+        fontsize=8,
+        horizontalalignment="center",
+        verticalalignment="center",
+    )
+    fig.tight_layout()
+    matplotlib.pyplot.title("Steady-State Equipment Time Utilisation")
+    matplotlib.pyplot.savefig(filename)
+    matplotlib.pyplot.close("all")
+
+
 def label_style(label):
     """
     Wrapper to encode labels in latex format if this setting is active.

@@ -15,6 +15,7 @@ import csv
 # TODO: Ability to parse info from SchedulePro database, perhaps based
 #       on a config file
 # TODO: Should any writing functions be included here?
+# TODO: Consider replacing ini with TOML
 
 
 def column_reader(filename):

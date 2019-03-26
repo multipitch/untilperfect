@@ -16,6 +16,6 @@ Module contents
 ---------------
 
 .. automodule:: untilperfect
-    :members:
-    :undoc-members:
-    :show-inheritance:
+   :members:
+   :undoc-members:
+   :show-inheritance:
