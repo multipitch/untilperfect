@@ -16,8 +16,3 @@ good-names=ax,b,bv,ct,e,i,j,k,m,M,n,N,op,p,P,q,r,s,tx,u,v,vv,w,x,y,z
 # Due to the way matplotlib creates colormaps, these fall afoul of 
 # E1101 (no-member).
 generated-members=matplotlib.cm*
-
-[MISCELLANEOUS]
-# Removed `TODO` from notes below to disable todo warnings.
-#notes=FIXME,XXX,TODO
-notes=FIXME,XXX

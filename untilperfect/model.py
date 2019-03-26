@@ -25,6 +25,7 @@ from .iotools import column_reader, get_config_section
 #       P = N
 # TODO: CLI argument to allow interactive run with problem returned for
 #       probing.
+# TODO: Check that everything works properly when called as a module
 
 
 class Parameters:
@@ -468,7 +469,7 @@ class BufferPrepProblem:
         do_solve: bool, optional
             If set to True (default), solves the problem upon
             construcion. Set this parameter to false to defer solution
-            (useful ff other constraints are to be applied before
+            (useful if other constraints are to be applied before
             solving).
 
         Returns
@@ -528,7 +529,7 @@ class BufferPrepProblem:
         )
         return status[-1]
 
-    def evaluate(self):
+    def evaluate(self, problem_type):
         """Generate some useful data from a solved problem."""
         if self.problem.status != 1:
             raise ValueError("No optimum solution found.")
@@ -543,34 +544,37 @@ class BufferPrepProblem:
         self.prep_vessels = numpy.array(
             [self.p_to_m[i] for i in self.prep_slots]
         )
-        self.prep_start_times = (
-            numpy.asarray(self.buffers.relative_use_start_times)
-            - self.z.values
-            - self.parameters.transfer_duration
-            - self.parameters.prep_pre_duration
-        ) % self.parameters.cycle_time
-        self.hold_start_times = (
-            numpy.asarray(self.buffers.relative_use_start_times)
-            - self.z.values
-            - self.parameters.transfer_duration
-            - self.parameters.hold_pre_duration
-        ) % self.parameters.cycle_time
-        self.transfer_start_times = (
-            self.prep_start_times + self.parameters.prep_pre_duration
-        ) % self.parameters.cycle_time
-        self.prep_total_durations = numpy.full(
-            self.N, self.parameters.prep_total_duration
-        )
-        self.hold_total_durations = (
-            self.parameters.hold_pre_duration
-            + self.parameters.transfer_duration
-            + self.z.values
-            + numpy.asarray(self.buffers.use_durations)
-            + self.parameters.hold_post_duration
-        )
-        self.transfer_durations = numpy.full(
-            self.N, self.parameters.transfer_duration
-        )
+        # TODO: Syntax seems hacky - consider refactoring how problem
+        # type is stored e.g. in an external enum class.
+        if problem_type is not BufferPrepProblem.basic:
+            self.prep_start_times = (
+                numpy.asarray(self.buffers.relative_use_start_times)
+                - self.z.values
+                - self.parameters.transfer_duration
+                - self.parameters.prep_pre_duration
+            ) % self.parameters.cycle_time
+            self.hold_start_times = (
+                numpy.asarray(self.buffers.relative_use_start_times)
+                - self.z.values
+                - self.parameters.transfer_duration
+                - self.parameters.hold_pre_duration
+            ) % self.parameters.cycle_time
+            self.transfer_start_times = (
+                self.prep_start_times + self.parameters.prep_pre_duration
+            ) % self.parameters.cycle_time
+            self.prep_total_durations = numpy.full(
+                self.N, self.parameters.prep_total_duration
+            )
+            self.hold_total_durations = (
+                self.parameters.hold_pre_duration
+                + self.parameters.transfer_duration
+                + self.z.values
+                + numpy.asarray(self.buffers.use_durations)
+                + self.parameters.hold_post_duration
+            )
+            self.transfer_durations = numpy.full(
+                self.N, self.parameters.transfer_duration
+            )
 
     def write(self, filename="untilperfect.lp"):
         """Write problem to file in .LP format.
@@ -582,7 +586,8 @@ class BufferPrepProblem:
         """
         self.problem.writeLP(filename)
 
-    def plot(self, filename="single_cycle_plot.pdf"):
+    # def plot(self, filename="single_cycle_plot.pdf"):
+    def plot(self, filename="single_cycle_plot.svg"):
         """
         Create a single-cycle steady-state equipment occupancy plot.
 
@@ -649,8 +654,8 @@ def solve(
     vessels = Vessels(vessels_file)
     problem = BufferPrepProblem(parameters, buffers, vessels, solver)
     status = problem_type(problem)
-    problem.evaluate()
-    if plot:
+    problem.evaluate(problem_type)
+    if plot and problem_type is not BufferPrepProblem.basic:
         problem.plot()
     if write:
         problem.write()
@@ -660,7 +665,10 @@ def solve(
         if count > 0:
             print("{}x\t{}".format(int(count), problem.vessels.names[index]))
     print("\nTotal cost: {}".format(pulp.value(problem.total_cost)))
-    print("Total hold time: {}".format(pulp.value(problem.total_hold_time)))
+    if problem_type is not BufferPrepProblem.basic:
+        print(
+            "Total hold time: {}".format(pulp.value(problem.total_hold_time))
+        )
     print("Total used volume: {}\n".format(pulp.value(problem.used_volume)))
     if cli:
         return status

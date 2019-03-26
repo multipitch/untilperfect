@@ -4,14 +4,37 @@ setup.py
 Setup
 """
 
+import codecs
+import os
+import re
 import setuptools
 
-with open("README.rst", "r") as fh:
-    LONG_DESCRIPTION = fh.read()
+HERE = os.path.abspath(os.path.dirname(__file__))
+
+
+def read(*parts):
+    """Read file."""
+    with codecs.open(os.path.join(HERE, *parts), "r") as file_path:
+        return file_path.read()
+
+
+def find_version(*file_paths):
+    """Finds version from file."""
+    version_file = read(*file_paths)
+    version_match = re.search(
+        r"^__version__ = ['\"]([^'\"]*)['\"]", version_file, re.M
+    )
+    if version_match:
+        return version_match.group(1)
+    raise RuntimeError("Unable to find version string.")
+
+
+LONG_DESCRIPTION = read("README.rst")
+
 
 setuptools.setup(
     name="untilperfect",
-    version="0.0.1",
+    version=find_version("untilperfect", "__init__.py"),
     author="Sean Tully",
     author_email="sean.tully@ucdconnect.ie",
     description=(
@@ -38,7 +61,5 @@ setuptools.setup(
         "PuLP>=1.6.9",
         "pylatexenc>=1.3",
     ],
-    extras_require={
-        "dev": ["black", "pylint", "sphinx", "sphinxcontrib-svg2pdfconverter"]
-    },
+    extras_require={"dev": ["black", "pylint", "sphinx"]},
 )

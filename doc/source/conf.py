@@ -12,7 +12,9 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
+import codecs
 import os
+import re
 import sys
 
 sys.path.insert(0, os.path.abspath(".."))
@@ -22,13 +24,33 @@ sys.path.insert(0, os.path.abspath(".."))
 # -- Project information -----------------------------------------------------
 
 project = "untilperfect"
-copyright = "2018, Sean Tully"
+copyright = "2018 - 2019, Sean Tully"
 author = "Sean Tully"
 
+here = os.path.abspath(os.path.dirname(__file__))
+
+
+def read(*parts):
+    """Read file."""
+    with codecs.open(os.path.join(here, *parts), "r") as file_path:
+        return file_path.read()
+
+
+def find_version(*file_paths):
+    """Finds version from file."""
+    version_file = read(*file_paths)
+    version_match = re.search(
+        r"^__version__ = ['\"]([^'\"]*)['\"]", version_file, re.M
+    )
+    if version_match:
+        return version_match.group(1)
+    raise RuntimeError("Unable to find version string.")
+
+
 # The short X.Y version
-version = ""
+version = find_version("..", "..", "untilperfect", "__init__.py")
 # The full version, including alpha/beta/rc tags
-release = "0.0.1"
+release = version
 
 
 # -- General configuration ---------------------------------------------------
@@ -51,7 +73,7 @@ extensions = [
     "sphinx.ext.viewcode",
     "sphinx.ext.napoleon",
     "sphinx.ext.imgconverter",
-    "sphinxcontrib.rsvgconverter",
+    "sphinx.ext.mathjax",
 ]
 
 # Add any paths that contain templates here, relative to this directory.

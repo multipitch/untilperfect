@@ -131,7 +131,9 @@ def main():
     else:
         raise ValueError(
             "'{}' is an invalid problem type.  Valid types are "
-            "'basic', 'complete', 'minimized_hold_time'."
+            "'basic', 'complete', 'minimized_hold_time'.".format(
+                args.problem_type
+            )
         )
 
     plot = not args.no_plot

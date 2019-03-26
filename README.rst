@@ -1,74 +1,76 @@
 untilperfect
 ====================================
 
-|license| |pyver| |codestyle|
+|license| |pyver| |codestyle| |docs|
 
 The unt\ **ilp**\ erfect application solves the buffer preparation
 vessel sizing and assignment problem using mixed **i**\ nteger
 **l**\ inear **p**\ rogramming.
 
-Forked from https://github.com/multipitch/dissertation.
+The source repo is at https://github.com/multipitch/untilperfect.
 
-The above repo was created for my masters dissertation on the subject
-towards an MSc in Business Analytics from University College Dublin.
-Further development has been forked here so that the dissertation repo
-remains frozen.
+Builds are hosted at https://pypi.org/project/untilperfect/.
 
-Distributed under the MIT License. © Sean Tully 2018-2019.
+Documentation is hosted at https://readthedocs.org/projects/untilperfect/.
 
-Install
--------
-Works on \*nix and Windows.
+This project was forked from https://github.com/multipitch/dissertation.
+The dissertation repo was created for my masters dissertation on the
+subject towards an MSc in Business Analytics from University College
+Dublin; further development has been forked here so that the
+dissertation repo remains frozen.
 
+Install via pip:
 ::
 
     $ pip install untilperfect
 
-Use
----
-Run from the command line (displays help).
+Provides the `untilperfect` CLI command
 ::
 
     $ untilperfect --help
+    usage: model.py [-h] [-b BUFFERS] [-n] [-p PARAMETERS] [-f PATH] [-s SOLVER]
+                    [-t PROBLEM_TYPE] [-v VESSELS] [-w]
 
-Install from source
--------------------
-For \*nix only.
-Requires python, git, make.
-Other dependencies are automatically installed.
-::
+    Solves the buffer preparation assignment and selection problem.
 
-    $ mkdir -p ~/git/untilperfect
-    $ git clone https://github.com/multipitch/untilperfect.git ~/git/untilperfect
-    $ cd ~/git/untilperfect
-    $ make install
+    optional arguments:
+    -h, --help            show this help message and exit
+    -b BUFFERS, --buffers BUFFERS
+                          buffers filename (default: 'buffers.csv')
+    -n, --no-plot         do not generate plot
+    -p PARAMETERS, --parameters PARAMETERS
+                          parameters filename (default: 'parameters.ini')
+    -f PATH, --path PATH  file path (default: <current working directory>)
+    -s SOLVER, --solver SOLVER
+                          solver to be used (default: 'COIN_CMD')
+    -t PROBLEM_TYPE, --problem-type PROBLEM_TYPE
+                          specify model to solve (default: 'complete'), other
+                          model options are 'basic', 'minimized_hold_time',
+                          'mimimized_used_volume'
+    -v VESSELS, --vessels VESSELS
+                          vessel filename (default: vessels.csv)
+    -w, --write           write problem to file in .lp format
 
-Install from Source (developer)
--------------------------------
+Distributed under the MIT License.
 
-Install using pip in editable mode in a virtual environment.
-For \*nix only.
-Requires python, git, make, pyenv, virtualenv, virtualenvwrapper, latex, librsvg
-Other dependencies are automatically installed.
-::
-
-    $ mkdir -p ~/git/untilperfect
-    $ git clone https://github.com/multipitch/untilperfect.git ~/git/untilperfect
-    $ pyenv install 3.7.0
-    $ mkvirtualenv -a ~/git/untilperfect -p ~/.pyenv/versions/3.7.0/bin/python untilperfect
-    $ make develop
+© Sean Tully 2018-2019.
 
 .. |license| image:: https://img.shields.io/badge/License-MIT-yellow.svg
-    :alt: license
+    :alt: License
     :scale: 100%
     :target: https://opensource.org/licenses/MIT
 
 .. |pyver| image:: https://img.shields.io/badge/python-3.7-blue.svg
-    :alt: python version
+    :alt: Python Version
     :scale: 100%
     :target: https://www.python.org/downloads/release/python-370/
 
 .. |codestyle| image:: https://img.shields.io/badge/code%20style-black-000000.svg
-    :alt: code style
+    :alt: Code Style
     :scale: 100%
     :target: https://github.com/ambv/black
+
+.. |docs| image:: https://readthedocs.org/projects/untilperfect/badge/?version=latest
+    :alt: Documentation Status
+    :scale: 100%
+    :target: https://untilperfect.readthedocs.io/en/latest/?badge=latest
